@@ -9,7 +9,6 @@ Creating tests using javaScript Snippets. <br>
 Automated testing, runing collections of tests and evaluating the results. <br>
 Inspecting responses, PM console. <br>
 Exported homeworks attached. <br>
-[HW2env.postman_environment.json](https://github.com/LinAdame/Postman/files/13052729/HW2env.postman_environment.json)
-[HW2.postman_collection.json](https://github.com/LinAdame/Postman/files/13052728/HW2.postman_collection.json)
+Request Inspector (https://requestinspector.com/ ) <br>
 [Homework.postman_environment.json](https://github.com/LinAdame/Postman/files/13052727/Homework.postman_environment.json)
 [Homework.postman_collection.json](https://github.com/LinAdame/Postman/files/13052725/Homework.postman_collection.json)
