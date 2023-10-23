@@ -1,6 +1,6 @@
 # Postman
 
-Learning Postman during the Czechitas Digital Academy, includes: <br>
+Learning Postman during the Czechitas Digital Academy, included: <br>
 Creating Collections and it's enviroments. <br>
 API creating users also with random generated data, registers, login, new terms, applications, orders, negative scenario.
 Working with tokens, authorization, variables.  <br>
