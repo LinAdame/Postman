@@ -1,0 +1,538 @@
+{
+	"info": {
+		"_postman_id": "e6f81461-7ff8-4f8e-98e7-a1bd80dfdf80",
+		"name": "HW2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24649924",
+		"_collection_link": "https://bold-shuttle-800143.postman.co/workspace/Team-Workspace~55b01e1d-c024-46f9-8c08-bb141b731e9d/collection/24649924-e6f81461-7ff8-4f8e-98e7-a1bd80dfdf80?action=share&source=collection_link&creator=24649924"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"item": [
+				{
+					"name": "Create user Random",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Successful POST request\", function () {",
+									"    pm.expect(pm.response.code).to.be.greaterThan(199).and.lessThan(299);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Name is OK\", function () {",
+									"    let name = pm.response.json().name;",
+									"    pm.expect(name.length).greaterThan(0);",
+									"    pm.collectionVariables.set(\"name\", name);",
+									"});",
+									"",
+									"pm.test(\"Email is filled in\", function () {",
+									"    let email = pm.response.json().email;",
+									"    pm.expect(email.length).greaterThan(5) //5 because *@*.*",
+									"    pm.collectionVariables.set(\"email\", email);",
+									"});",
+									"",
+									"pm.test(\"Token is longer 0\", function () {",
+									"    let token = pm.response.json().access_token;",
+									"    pm.expect(token.length).greaterThan(0)",
+									"    pm.collectionVariables.set(\"token\", token);",
+									"",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{$randomFullName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"password\": \"{{$randomPassword}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user_blank password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"});",
+									"",
+									"//ko. hlášky:",
+									"",
+									"pm.test(\"The password field is required.\", function() {",
+									"    let message = pm.response.json().message;",
+									"    pm.expect(message).to.equal(`The password field is required.`)",
+									"    pm.collectionVariables.set(\"message\", message);",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{$randomFullName}}\",\n  \"email\": \"mailsojkov@czechitas.cz\",\n  \"password\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user_blank name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"});",
+									"",
+									"pm.test(\"The name field is required.\", function() {",
+									"    let message = pm.response.json().message;",
+									"    pm.expect(message).to.equal(`The name field is required.`)",
+									"    pm.collectionVariables.set(\"message\", message);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"\",\n  \"email\": \"{{$randomEmail}}\",\n  \"password\": \"Sojak2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user_blank mail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"});",
+									"",
+									"pm.test(\"The email field is required.\", function() {",
+									"    let message = pm.response.json().message;",
+									"    pm.expect(message).to.equal(`The email field is required.`)",
+									"    pm.collectionVariables.set(\"message\", message);",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Paní Sojková\",\n  \"email\": \"\",\n  \"password\": \"Sojak2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user_used mail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 422\", function () {",
+									"    pm.response.to.have.status(422);",
+									"});",
+									"",
+									"pm.test(\"email is already used\", function() {",
+									"    let message = pm.response.json().message;",
+									"    pm.expect(message).to.equal(`The email has already been taken.`)",
+									"    pm.collectionVariables.set(\"message\", message);",
+									"})",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Ježibaba Sojková\",\n  \"email\": \"{{email}}\",\n  \"password\": \"Sojak12\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/register",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request inspector",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{$randomFullName}}\",\n  \"email\": \"{{$randomEmail}}\",\n  \"password\": \"číwieofg\"\n}\n//diakritika_zkouška",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://01hde6c2zmr765464s7d5c7e7400-465666b903111c1ecad8.requestinspector.com",
+							"protocol": "https",
+							"host": [
+								"01hde6c2zmr765464s7d5c7e7400-465666b903111c1ecad8",
+								"requestinspector",
+								"com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login current user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Role is parent\", function() {",
+									"    let role = pm.response.json().role;",
+									"    pm.expect(role).to.equal(`parent`)",
+									"    pm.collectionVariables.set(\"role\", role);",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/current",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login current user_No auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {",
+									"    pm.response.to.have.status(401);",
+									"});",
+									"",
+									"pm.test(\"Unauthenticated.\", function() {",
+									"    let message = pm.response.json().message;",
+									"    pm.expect(message).to.equal(`Unauthenticated.`)",
+									"    pm.collectionVariables.set(\"message\", message);",
+									"})",
+									"",
+									"",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/users/current",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"current"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "New order",
+			"item": [
+				{
+					"name": "New order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"camp\",\n  \"client\": \"Dítě jedno\",\n  \"ico\": \"123456789\",\n  \"address\": \"{{$randomStreetAddress}}\",\n  \"substitute\": \"jupi\",\n  \"contact_name\": \"zaba\",\n  \"contact_tel\": \"333333333\",\n  \"contact_mail\": \"{{$randomEmail}}\",\n  \"start_date_1\": \"2022-10-15\",\n  \"end_date_1\": \"2022-10-15\",\n  \"students\": 1,\n  \"age\": \"6\",\n  \"adults\": 1,\n  \"start_date_2\": \"2022-10-15\",\n  \"end_date_2\": \"2022-10-15\",\n  \"start_date_3\": \"2022-10-15\",\n  \"end_date_3\": \"2022-10-15\",\n  \"date_part\": \"forenoon\",\n  \"start_time\": \"\",\n  \"start_food\": \"breakfast\",\n  \"end_time\": \"\",\n  \"end_food\": \"breakfast\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/orders",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "name",
+			"value": ""
+		},
+		{
+			"key": "email",
+			"value": ""
+		},
+		{
+			"key": "mailsojka@czechitas.cz",
+			"value": ""
+		},
+		{
+			"key": "message",
+			"value": ""
+		},
+		{
+			"key": "role",
+			"value": ""
+		}
+	]
+}
