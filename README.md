@@ -1,12 +1,12 @@
 # Postman
 
 Learning Postman during the Czechitas Digital Academy, included: <br>
-Creating Collections and it's enviroments. <br>
-API creating users also with random generated data, registers, login, new terms, applications, orders, negative scenario.
-Working with tokens, authorization, variables.  <br>
+Creating Collections and its Environment. <br>
+Creating users also with randomly generated data, registers, login, new terms, applications, orders, and negative scenarios.
+Working with tokens, authorization, and variables.  <br>
 Sending requests and viewing responses. <br>
 Creating tests using javaScript Snippets. <br>
-Automated testing, runing collections of tests and evaluating the results. <br>
+Automated testing, running collections of tests, and evaluating the results. <br>
 Inspecting responses, PM console. <br>
 Exported homeworks attached. <br>
 Request Inspector ( https://requestinspector.com/ ) <br>
